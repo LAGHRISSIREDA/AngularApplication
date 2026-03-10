@@ -31,5 +31,5 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Run tests
+      - name: Run test
         run: npm test
