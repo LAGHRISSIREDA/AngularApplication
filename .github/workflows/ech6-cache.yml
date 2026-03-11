@@ -1,48 +1,24 @@
-name: cache
+run-npm-test:
+  runs-on: ubuntu-latest
+  needs: run-npm-install
 
-on:
-  workflow_dispatch:
+  steps:
+    - name: checkout
+      uses: actions/checkout@v4
 
-jobs:
-  run-npm-install:
-    runs-on: ubuntu-latest
+    - name: setup node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/*'
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
 
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
-      - name: run install
-        run: npm install
-
-  run-npm-test:
-    runs-on: ubuntu-latest
-    needs: run-npm-install
-
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/*'
-
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
-      - name: run test
-        run: npm test -- --watch=false --browsers=ChromeHeadless
+    - name: run test
+      run: npm test -- --watch=false --browsers=ChromeHeadless --no-sandbox
