@@ -17,8 +17,5 @@ run-npm-test:
         path: node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-    - name: Install Chrome
-      uses: browser-actions/setup-chrome@v1
-
     - name: run test
-      run: npm test -- --watch=false --browsers=ChromeHeadless --no-sandbox
+      run: npm run test -- --watch=false --browsers=ChromeHeadless --no-sandbox
