@@ -1,9 +1,9 @@
-name: Reusable Workflow
+name: Calll worklow
 on:
   workflow_dispatch:
 
 jobs:
-  run-npm-test:
-    uses: ./.github/workflows/reusable.yml 
+  call-reusable:
+    uses: ./.github/workflow/reusable.yaml
     with:
-      node-version: 18
+      node-version: 19
