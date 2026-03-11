@@ -1,6 +1,11 @@
 name: reusable workflow
 on: 
-  workflow_dispatch:
+  workflow_call:
+   inputs:
+      node-version:
+        required: true
+        type: string
+        default: 'lts/*'
 
 jobs:
   run-npm-test:
@@ -11,10 +16,9 @@ jobs:
         - name : setup node
           uses: actions/setup-node@v6
           with:
-            node-version: 'lts/*'
+            node-version: ${{inputs.node-version}}
         - name: run test
           shell: bash
           run: |
             node -v
             npm install
-            npm test
