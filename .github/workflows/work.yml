@@ -6,4 +6,4 @@ jobs:
   call-reusable:
     uses: ./.github/workflow/reusable.yaml
     with:
-      node-version: 19
+      node-version: 18
