@@ -1,9 +1,10 @@
-name: Calll worklow
+name: Call workflow
+
 on:
   workflow_dispatch:
 
 jobs:
   call-reusable:
-    uses: ./.github/workflow/reusable.yaml
+    uses: ./.github/workflows/reusable.yaml
     with:
-      node-version: 18
+      node-version: "18"
