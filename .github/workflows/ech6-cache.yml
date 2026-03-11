@@ -45,4 +45,4 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
       - name: run test
-        run: npm test
+        run: npm test -- --watch=false --browsers=ChromeHeadless
